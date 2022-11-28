@@ -2,6 +2,8 @@ package com.mizuki.employeecrm.service;
 
 import com.mizuki.employeecrm.model.Employee;
 import com.mizuki.employeecrm.repository.EmployeeRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,9 @@ public class EmployeeService {
         return foundEmployee;
     }
 
+    public Page<Employee> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
     public Iterable<Employee> findAll() {
         Iterable<Employee> employees = repository.findAll();
 
