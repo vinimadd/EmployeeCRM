@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employees CRM</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+
+<!--Table content-->
+<div class="col-md-8 col-sm-11 mx-auto my-5">
+  <h2>Employees CRM</h2>
+    <hr>
+  <table class="table table-hover">
+<!--    Table headers-->
+    <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Salary</th>
+<!--      <th scope="col">Picture</th>-->
+<!--      <th scope="col">Action</th>-->
+    </tr>
+    </thead>
+<!--    Table row -> fill with foreach from db-->
+    <tbody>
+    <tr th:if="${#lists.isEmpty(employees)}">
+      <td>No data</td>
+    </tr>
+    <tr th:each="employee : ${employees}">
+      <th scope="row" th:text="${employee.id}">id</th>
+      <th th:text="${employee.firstName}">first name</th>
+      <th th:text="${employee.lastName}">last name</th>
+      <th th:text="${employee.email}">email</th>
+      <th th:text="${employee.salary}">salary</th>
+<!--      <th>photo</th>-->
+<!--      <button>z</button>-->
+    </tr>
+    </tbody>
+  </table>
+<!--  Pagination + navigation-->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+
+      <li class="page-item" th:classappend="${employees.first} ? 'disabled'">
+        <a class="page-link" th:href="@{employees(page=${employees.number - 1})}">Previous</a>
+      </li>
+
+      <li th:each="page : ${#numbers.sequence(0,employees.totalPages - 1)}" class="page-item" th:classappend="${employees.number} == ${page} ? 'active'">
+        <a class="page-link" th:href="@{employees(page=${page})}" th:text="${page + 1}" >1</a>
+      </li>
+
+      <li  class="page-item" th:classappend="${employees.last} ? 'disabled'">
+        <a class="page-link" th:href="@{employees(page=${employees.number + 1})}">Next</a>
+      </li>
+
+    </ul>
+  </nav>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+</body>
+</html>
