@@ -8,8 +8,46 @@
         integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body>
-<div>
-  <h2 class="mx-5 my-5">To check enpdpoint add /employees to current url path</h2>
+<div class="col-md-6 col-sm-11 mx-auto my-5">
+  <h1 class="my-3">Employee form</h1>
+  <hr class="border border-primary border-2 opacity-50">
+<!--  Form starts here-->
+
+  <div class="alert alert-danger" role="alert" th:text="${errorMsg}" th:if="${errorMsg}"> A simple danger alert—check it out! </div>
+
+  <form class="was-validated row gy-3 gx-3" novalidate th:object="${employee}" method="post">
+
+    <div class="col-md-6">
+      <label for="firstNameInput" class="form-label">First name</label>
+      <input type="text" id="firstNameInput" class="form-control" th:field="*{firstName}" th:errorclass="is-invalid" placeholder="First name" required>
+      <div id="validationFirstName" class="invalid-feedback" th:errors="*{firstName}"> Is employee data valid. </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="lastNameInput" class="form-label">Last name</label>
+      <input type="text" id="lastNameInput" class="form-control" th:field="*{lastName}" th:errorclass="is-invalid" placeholder="Last name" required>
+      <div id="validationLastName" class="invalid-feedback" th:errors="*{lastName}"> Is employee data valid. </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="emailInput" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" th:field="*{email}" th:errorclass="is-invalid" placeholder="name@example.com" required>
+      <div id="validationEmail" class="invalid-feedback" th:errors="*{email}"> Is employee data valid. </div>
+    </div>
+
+    <div class="col-md-6">
+      <label for="salaryInput" class="form-label">Salary</label>
+      <input type="number" id="salaryInput" class="form-control" th:field="*{salary}" th:errorclass="is-invalid" placeholder="Employees salary" required>
+      <div id="validationSalary" class="invalid-feedback" th:errors="*{salary}"> Is employee data valid. </div>
+    </div>
+
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="col-md-6 my-4">
+      <button type="submit" class="btn btn-primary">Save employee</button>
+      <a class="btn btn-warning" th:href="@{/employees}" role="button">Return to list</a></div>
+  </form>
+
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
