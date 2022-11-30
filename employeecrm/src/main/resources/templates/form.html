@@ -15,7 +15,9 @@
 
   <div class="alert alert-danger" role="alert" th:text="${errorMsg}" th:if="${errorMsg}"> A simple danger alert—check it out! </div>
 
-  <form class="was-validated row gy-3 gx-3" novalidate th:object="${employee}" method="post">
+  <form class="was-validated row gy-3 gx-3" novalidate th:object="${employee}" th:action="@{/form/save}" method="post">
+
+    <input type="hidden" th:field="*{id}" />
 
     <div class="col-md-6">
       <label for="firstNameInput" class="form-label">First name</label>
@@ -41,11 +43,12 @@
       <div id="validationSalary" class="invalid-feedback" th:errors="*{salary}"> Is employee data valid. </div>
     </div>
 
-    <input type="hidden" th:field="*{id}" />
 
     <div class="col-md-6 my-4">
       <button type="submit" class="btn btn-primary">Save employee</button>
       <a class="btn btn-warning" th:href="@{/employees}" role="button">Return to list</a></div>
+
+
   </form>
 
 </div>

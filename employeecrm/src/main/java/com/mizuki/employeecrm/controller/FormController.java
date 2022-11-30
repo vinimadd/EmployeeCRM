@@ -6,12 +6,10 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/form")
@@ -34,16 +32,26 @@ public class FormController {
         return new Employee();
     }
 
-    @PostMapping
+
+    @PostMapping("/save")
     public String saveEmployee(@Valid Employee employee, Errors errors) {
         log.info(employee);
 
         if (!errors.hasErrors()) {
             service.saveEmployee(employee);
-            return "redirect:employees";
+            return "redirect:/employees";
         }
         return "form";
 
+    }
+
+    @GetMapping("/update")
+    public String updateEmployee(@RequestParam(name = "empId") Long id, Model model) {
+
+            Employee employee = service.findById(id).get();
+            model.addAttribute("employee", employee);
+
+        return "form";
     }
 
 }
