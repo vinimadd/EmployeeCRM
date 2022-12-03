@@ -15,7 +15,7 @@
 
   <div class="alert alert-danger" role="alert" th:text="${errorMsg}" th:if="${errorMsg}"> A simple danger alert—check it out! </div>
 
-  <form class="was-validated row gy-3 gx-3" novalidate th:object="${employee}" th:action="@{/form/save}" method="post">
+  <form class="was-validated row gy-3 gx-3" novalidate th:object="${employee}" th:action="@{/employees/form/save}" method="post" enctype="multipart/form-data">
 
     <input type="hidden" th:field="*{id}" />
 
@@ -31,6 +31,11 @@
       <div id="validationLastName" class="invalid-feedback" th:errors="*{lastName}"> Is employee data valid. </div>
     </div>
 
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date of birth</label>
+      <input type="date" class="form-control" id="dob" th:field="*{dob}" th:errorclass="is-invalid" aria-describedby="dobHelp" required>
+      <div id="validationDob" class="invalid-feedback" th:errors="*{dob}"> Is employee data valid. </div>
+
     <div class="col-md-6">
       <label for="emailInput" class="form-label">Email address</label>
       <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" th:field="*{email}" th:errorclass="is-invalid" placeholder="name@example.com" required>
@@ -43,12 +48,17 @@
       <div id="validationSalary" class="invalid-feedback" th:errors="*{salary}"> Is employee data valid. </div>
     </div>
 
+    <div class="mb-3">
+      <label for="photoFileName" class="form-label">Photo file</label>
+      <input class="form-control" type="file" id="photoFileName" th:field="*{photoFileName}" required>
+    </div>
 
     <div class="col-md-6 my-4">
       <button type="submit" class="btn btn-primary">Save employee</button>
-      <a class="btn btn-warning" th:href="@{/employees}" role="button">Return to list</a></div>
+      <a class="btn btn-warning" th:href="@{/employees}" role="button">Return to list</a>
+    </div>
 
-
+    </div>
   </form>
 
 </div>

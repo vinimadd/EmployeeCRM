@@ -12,7 +12,7 @@
 <!--Table content-->
 <div class="col-md-8 col-sm-11 mx-auto my-5">
   <h1 class="my-3">Employees CRM</h1>
-    <a th:href="@{/form}" class="btn btn-success">Add employee</a>
+    <a th:href="@{/employees/form}" class="btn btn-success">Add employee</a>
     <hr class="border border-primary border-2 opacity-50">
 
         <table class="table table-hover">
@@ -22,6 +22,7 @@
                 <th scope="col">Id</th>
                 <th scope="col">First name</th>
                 <th scope="col">Last name</th>
+                <th scope="col">DOB</th>
                 <th scope="col" class="d-sm-none d-md-table-cell">Email</th>
                 <th scope="col">Salary</th>
                 <th scope="col">Picture</th>
@@ -35,13 +36,14 @@
             </tr>
             <tr th:each="employee : ${employees}">
                 <th scope="row" th:text="${employee.id}">id</th>
-                <th th:text="${employee.firstName}">first name</th>
-                <th th:text="${employee.lastName}">last name</th>
-                <th th:text="${employee.email}" class="d-sm-none d-md-table-cell">email</th>
-                <th th:text="${employee.salary}">salary</th>
-                <th>photo</th>
-                <th>
-                    <a th:href="@{/form/update(empId=${employee.id})}"
+                <td th:text="${employee.firstName}">first name</td>
+                <td th:text="${employee.lastName}">last name</td>
+                <td th:text="${#temporals.format(employee.dob, 'dd MMMM, yyyy')}">dob</td>
+                <td th:text="${employee.email}" class="d-sm-none d-md-table-cell">email</td>
+                <td th:text="${{employee.salary}}" class="text-end">salary</td>
+                <td> <img th:if="${employee.photoFileName}" th:src="@{/employees/images/{filename}(filename=${employee.photoFileName})}" height="32px" width="32px" /></td>
+                <td>
+                    <a th:href="@{/employees/form/update(empId=${employee.id})}"
                        class="btn btn-primary mb-5 me-2">
                         Update
                     </a>
@@ -51,10 +53,7 @@
                         Delete
                     </a>
 
-<!--                    <button type="submit" name="action" value="edit" class="btn btn-primary mb-5 me-2" th:value="${employee.id}">Edit</button>-->
-<!--                    <button type="submit" name="action" value="delete" class="btn btn-danger mb-5"  th:value="${employee.id}">Delete </button>-->
-
-                </th>
+                </td>
             </tr>
             </tbody>
         </table>
